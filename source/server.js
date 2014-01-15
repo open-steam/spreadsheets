@@ -93,7 +93,7 @@ function getUserFromSession(session_id, callback) {
                         callback('session could not be read: '+exception);
                     }
                 }
-            }); 
+            });
         }
         else callback('session file '+filename+' does not exist');
     });
@@ -148,7 +148,7 @@ function getUserPermission(docName, userName, callback) {
 }
 
 /**
-* remove a document 
+* remove a document
 *
 * @param {String} docName name of the document
 * @param {Function} [callback] will be called when removal is done
@@ -167,7 +167,7 @@ function removeDocument(docName, callback) {
                     }
                     else {
                         var steamURL = "http://" + settings.STEAM_USER + ":" + settings.STEAM_PASSWORD + "@" + settings.STEAM_SERVER_HOST + "spreadsheets/RemoveEditAttribute/" + docName;
-                
+
                         request({url: steamURL},
                                 function (error, response, body) {
                                     if (error) {
@@ -316,8 +316,8 @@ function saveDocToSteam(docName, callback) {
                         };
             // put authentication data into the URL
             var steamURL = "http://" + settings.STEAM_USER + ":" + settings.STEAM_PASSWORD + "@" + settings.STEAM_SERVER_HOST + "spreadsheets/CheckAuth/" + docName;
-            
-            request({url: steamURL, 
+
+            request({url: steamURL,
                      method: "PUT",
                      json: doc_data
                     },
@@ -404,7 +404,7 @@ server.use(server.router);
                             "id": req.body.id,
                             "username": req.body.username,
                             "password": req.body.password
-                }; 
+                };
                 console.log('session pushed '+req.body.id);
                 res.end('External Session saved');
             } else {
@@ -435,7 +435,7 @@ server.use(server.router);
             });
         }
     });
-    
+
     // Action to test if the document exists
     server.get('/doc/exists/:docName', function(req, res, next) {
         var docName = req.params.docName;
@@ -467,7 +467,7 @@ server.use(server.router);
             }
         }
     });
-    
+
     // Action to delete a document
     server.get('/doc/delete/:docName', function(req, res, next) {
         var docName = req.params.docName;
@@ -493,7 +493,7 @@ server.use(server.router);
 var options = {
     browserChannel: {cors:settings.RT_SERVER_HOST},
     rest: null,
-    db: {type: 'memory'},
+    db: {type: 'none'},
     /**
      * Gets called everytime before a user tries to connect or submit an operation
      * (see https://github.com/josephg/ShareJS/wiki/User-access-control)
