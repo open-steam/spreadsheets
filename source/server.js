@@ -72,7 +72,7 @@ function getUserFromSession(session_id, callback) {
 	console.log("getUserFromSession");
     //var filename = '/var/lib/php5/sess_'+session_id;
     var filename = path.join(settings.PHP_SESSION_DIR, '/sess_'+session_id);
-    console.log('check existece session file '+filename);
+    console.log('check existence session file '+filename);
     fs.exists(filename, function (exists) {
         if (exists) {
             console.log('Found session file');
@@ -109,8 +109,8 @@ function getUserFromExternalSession(session_id, callback) {
     console.log("getUserFromExternalSession");
     if (externalSessions[session_id] != undefined) {
         console.log("checking login credentials for session "+session_id);
-        var steamURL = "http://" + externalSessions[session_id].username+ ":" + externalSessions[session_id].password + "@" + settings.STEAM_SERVER_HOST + "Rest/";
-        request({url: steamURL, method: "POST"},
+        var steamURL = "http://" + settings.STEAM_SERVER_HOST + "Rest/";
+        request({'url': steamURL, 'method': 'POST', 'auth': {'user': externalSessions[session_id].username, 'pass': externalSessions[session_id].password}},
                 function (error, response, body) {
                     if (response.statusCode == 401) {
                         callback('external session not valid');
@@ -304,6 +304,7 @@ function timeOut() {
  * @param {Function} [callback] will be called whith the response of the sTeam/koaLA server
  */
 function saveDocToSteam(docName, callback) {
+    console.log("saveDocToSteam " + docName);
     server.model.getSnapshot(docName, function(error, data) {
         if (error || data.snapshot === null) {
             error = error || "document is null";
