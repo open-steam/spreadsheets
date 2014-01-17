@@ -4,9 +4,10 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "express": "3.0.0rc4",
-    "share": "0.5.0",
-    "request": "2.11.4",
-    "color-convert": "0.3.1"
+    "express": "3.2.5",
+    "share": "0.6.0",
+    "request": "2.31.0",
+    "color-convert": "0.3.1",
+    "connect": " 2.12.0"
   }
 }
