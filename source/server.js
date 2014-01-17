@@ -133,9 +133,9 @@ function getUserFromExternalSession(session_id, callback) {
 */
 function getUserPermission(docName, userName, callback) {
 	console.log("getUserPermission");
-    var steamURL = "http://" + settings.STEAM_USER + ":" + settings.STEAM_PASSWORD + "@" + settings.STEAM_SERVER_HOST + "spreadsheets/GetUserPermissions/" + docName + "/"+ userName;
+    var steamURL = "http://" + settings.STEAM_SERVER_HOST + "spreadsheets/GetUserPermissions/" + docName + "/"+ userName;
 
-    request({url: steamURL},
+    request({'url': steamURL, 'auth': {'user': settings.STEAM_USER, 'pass': settings.STEAM_PASSWORD}},
             function (error, response, body) {
                 if (error) {
                     callback(error);
@@ -166,9 +166,9 @@ function removeDocument(docName, callback) {
                         callback(error);
                     }
                     else {
-                        var steamURL = "http://" + settings.STEAM_USER + ":" + settings.STEAM_PASSWORD + "@" + settings.STEAM_SERVER_HOST + "spreadsheets/RemoveEditAttribute/" + docName;
+                        var steamURL = "http://" + settings.STEAM_SERVER_HOST + "spreadsheets/RemoveEditAttribute/" + docName;
 
-                        request({url: steamURL},
+                        request({'url': steamURL, 'auth': {'user': settings.STEAM_USER, 'pass': settings.STEAM_PASSWORD}},
                                 function (error, response, body) {
                                     if (error) {
                                         console.log(error);
@@ -316,11 +316,12 @@ function saveDocToSteam(docName, callback) {
                             "users" : {}
                         };
             // put authentication data into the URL
-            var steamURL = "http://" + settings.STEAM_USER + ":" + settings.STEAM_PASSWORD + "@" + settings.STEAM_SERVER_HOST + "spreadsheets/CheckAuth/" + docName;
+            var steamURL = "http://" + settings.STEAM_SERVER_HOST + "spreadsheets/CheckAuth/" + docName;
 
-            request({url: steamURL,
-                     method: "PUT",
-                     json: doc_data
+            request({'url': steamURL,
+                     'method': "PUT",
+                     'json': doc_data,
+                     'auth': {'user': settings.STEAM_USER, 'pass': settings.STEAM_PASSWORD}
                     },
                     function (error, response, body) {
                         if (error) {
