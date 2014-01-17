@@ -7,4 +7,3 @@ exports.STEAM_PASSWORD = "*****";
 exports.SYNC_TO_STEAM_INTERVAL = 2; //interval (in minutes)
 exports.AUTO_SYNC = true    // set to false to turn off storing documents regularly
 exports.PING_TIMEOUT = 20; //timeout (in seconds) after which clients will be disconnected if they dont send the "alive"-ping
-exports.PHP_SESSION_DIR = "/tmp/";

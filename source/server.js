@@ -1,3 +1,6 @@
+#! /usr/bin/node
+process.chdir(__dirname);
+
 var express = require('express');
 var sharejs = require('share').server;
 var request = require('request');
@@ -60,43 +63,6 @@ function getColorGenerator() {
             var rgb = colorconverter.hsv(hsv[0], hsv[1], hsv[2]).rgb();
             return 'rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';
         };
-}
-
-/**
-* reads the login name from the serialized php session
-*
-* @param {String} session_id id of the php session
-* @param {Function} [callback] will be called when reading the username is done
-*/
-function getUserFromSession(session_id, callback) {
-	console.log("getUserFromSession");
-    //var filename = '/var/lib/php5/sess_'+session_id;
-    var filename = path.join(settings.PHP_SESSION_DIR, '/sess_'+session_id);
-    console.log('check existence session file '+filename);
-    fs.exists(filename, function (exists) {
-        if (exists) {
-            console.log('Found session file');
-            fs.readFile(filename, 'utf-8', function (error, data) {
-                if (error) {
-                    callback(error);
-                }
-                else {
-                    console.log('session file opened. Trying to read...');
-                    console.log('session file raw contents :'+data);
-                    try {
-                        var session = unserialize.unserialize_session(data);
-                        console.log('session file contents: '+JSON.stringify(session));
-                        console.log('username: '+session['LMS_USER']['*login']);
-                        callback(null, session['LMS_USER']['*login']);
-                    }
-                    catch (exception){
-                        callback('session could not be read: '+exception);
-                    }
-                }
-            });
-        }
-        else callback('session file '+filename+' does not exist');
-    });
 }
 
 /**
